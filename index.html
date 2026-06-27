@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name if profile else 'My Portfolio' }} - Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/admin" class="text-xl font-bold text-blue-600 tracking-wide uppercase" title="Masuk ke Halaman Admin">
+                {{ profile.name.split(' ')[0] if profile else 'PORTFOLIO' }}
+            </a>
+            <div class="space-x-6">
+                <a href="#about" class="hover:text-blue-600 transition">Tentang</a>
+                <a href="#skills" class="hover:text-blue-600 transition">Skill</a>
+                <a href="#experience" class="hover:text-blue-600 transition">Pengalaman</a>
+                <a href="#projects" class="hover:text-blue-600 transition">Proyek</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="max-w-6xl mx-auto px-4 py-20 flex flex-col md:flex-row items-center gap-12">
+        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-lg border-4 border-blue-500 shrink-0 bg-gray-200">
+            {% if profile and profile.photo_url %}
+                <img src="{{ profile.photo_url }}" alt="Profile Photo" class="w-full h-full object-cover">
+            {% else %}
+                <img src="https://ui-avatars.com/api/?name={{ profile.name if profile else 'Portfolio' }}&background=2563EB&color=fff&size=256" alt="Profile Photo" class="w-full h-full object-cover">
+            {% endif %}
+        </div>
+        <div class="text-center md:text-left">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">{{ profile.name if profile else 'Nama Anda' }}</h1>
+            <p class="text-xl text-blue-600 font-medium mb-4">{{ profile.title if profile else 'Profesi / Bidang' }}</p>
+            <p class="text-gray-600 max-w-2xl mb-6 leading-relaxed">{{ profile.bio if profile else 'Tuliskan biografi singkat Anda di panel admin.' }}</p>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-500">
+                {% if profile and profile.location %}<span><i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> {{ profile.location }}</span>{% endif %}
+                {% if profile and profile.email %}<span><i class="fas fa-envelope text-blue-500 mr-1"></i> {{ profile.email }}</span>{% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="bg-white py-20 shadow-inner">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Keahlian & Skill</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {% for skill in skills %}
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">{{ skill.name }}</span>
+                        <span class="text-blue-600 font-bold">{{ skill.percentage }}%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: {{ skill.percentage }}%"></div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-gray-500 text-center col-span-2">Belum ada data skill. Tambahkan melalui panel admin.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="bg-white py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Riwayat Pengalaman</h2>
+            
+            <div class="relative border-l-4 border-blue-100 ml-4 md:mx-auto max-w-3xl">
+                {% for exp in experiences %}
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                {{ exp.title }}
+                                {% if exp.company and exp.company.strip() != '-' %}
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> {{ exp.company }}
+                                </span>
+                                {% endif %}
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            {% if exp.start_date and exp.start_date.strip() != '-' %}{{ exp.start_date }}{% endif %}
+                            {% if exp.start_date and exp.end_date and exp.start_date.strip() != '-' and exp.end_date.strip() != '-' %} — {% endif %}
+                            {% if exp.end_date and exp.end_date.strip() != '-' %}{{ exp.end_date }}{% endif %}
+                        </time>
+                        
+                        {% if exp.description and exp.description.strip() != '-' and exp.description.strip() != '' %}
+                        <p class="text-gray-600 leading-relaxed text-sm md:text-base border-t border-gray-200 pt-3 mt-2">
+                            {{ exp.description }}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center p-8 bg-gray-50 rounded-xl border border-gray-200 text-gray-500">
+                    <i class="fas fa-folder-open text-4xl mb-3 text-gray-400"></i>
+                    <p>Belum ada data pengalaman yang ditambahkan.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="bg-gray-100 py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Proyek Saya</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for proj in projects %}
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition flex flex-col">
+                    <img class="h-48 w-full object-cover bg-gray-200" src="{{ proj.image_url if proj.image_url else 'https://via.placeholder.com/400x250' }}" alt="Project Image">
+                    <div class="p-6 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-xl mb-2 text-gray-900">{{ proj.title }}</h3>
+                            <p class="text-gray-600 text-sm mb-4">{{ proj.description }}</p>
+                        </div>
+                        <div class="flex gap-4 mt-4 text-sm font-semibold">
+                            {% if proj.project_url and proj.project_url != '#' %}<a href="{{ proj.project_url }}" target="_blank" class="text-blue-600 hover:underline">Live Demo</a>{% endif %}
+                            {% if proj.repo_url and proj.repo_url != '#' %}<a href="{{ proj.repo_url }}" target="_blank" class="text-gray-600 hover:underline"><i class="fab fa-github"></i> Repository</a>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-gray-500 text-center col-span-3">Belum ada data proyek.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="max-w-4xl mx-auto px-4 py-20">
+        <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Hubungi Saya</h2>
+        <p class="text-center text-gray-500 mb-12">Kirim pesan langsung ke email saya lewat form di bawah ini.</p>
+        
+        <form id="contactForm" class="bg-white p-8 rounded-2xl shadow-md space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2 text-sm font-semibold text-gray-700">Nama Lengkap</label>
+                    <input type="text" id="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-semibold text-gray-700">Alamat Email</label>
+                    <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-semibold text-gray-700">Subjek</label>
+                <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-semibold text-gray-700">Isi Pesan</label>
+                <textarea id="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow transition">
+                Kirim Pesan <i class="fas fa-paper-plane ml-1"></i>
+            </button>
+        </form>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm border-t border-gray-800">
+        <p>&copy; 2026 {{ profile.name if profile else 'Nama Anda' }}. Seluruh Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Mengirim...';
+
+            const payload = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const response = await fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Sukses! ' + result.message);
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert('Gagal: ' + result.error);
+                }
+            } catch (err) {
+                alert('Terjadi kesalahan sistem.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Kirim Pesan <i class="fas fa-paper-plane ml-1"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

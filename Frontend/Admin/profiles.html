@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Data Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex min-h-screen">
+
+    <aside class="w-64 bg-gray-900 text-white flex flex-col justify-between shrink-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider text-blue-400 mb-8"><i class="fas fa-user-shield mr-2"></i>AdminPanel</h2>
+            
+            <nav class="space-y-3">
+                <a href="/admin/dashboard" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-chart-pie w-5"></i> <span>Dashboard</span></a>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider pt-4">Kelola Data</p>
+                <a href="/admin/" class="flex items-center space-x-3 px-4 py-3 bg-blue-600 rounded-lg font-medium transition"><i class="fas fa-user w-5"></i> <span>Profil & Skill</span></a>
+                <a href="/admin/experiences" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-briefcase w-5"></i> <span>Pengalaman</span></a>
+                <a href="/admin/projects" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-project-diagram w-5"></i> <span>Proyek</span></a>
+            </nav>
+        </div>
+        <div class="p-6 border-t border-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Hai, <strong class="text-white">{{ username }}</strong></span>
+                <a href="/admin/logout" class="text-red-400 hover:text-red-500 transition font-semibold text-sm"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-grow p-10">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900">Manajemen Data</h1>
+                <p class="text-gray-500 mt-1">Update Profil Portofolio dan Kelola Data Skill di TiDB Cloud.</p>
+            </div>
+            <a href="/admin/dashboard" class="bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg font-medium shadow-sm transition">&larr; Kembali ke Dashboard</a>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-6"><i class="fas fa-id-card text-blue-500 mr-2"></i>Edit Informasi Profil</h3>
+                
+                <form id="formProfil" enctype="multipart/form-data" class="space-y-5">
+                    <input type="hidden" name="existing_photo_url" value="{{ profile.photo_url if profile else '' }}">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Nama Lengkap</label>
+                            <input type="text" name="name" value="{{ profile.name if profile else '' }}" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Title / Pekerjaan</label>
+                            <input type="text" name="title" value="{{ profile.title if profile else '' }}" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Bio Singkat</label>
+                        <textarea name="bio" rows="3" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">{{ profile.bio if profile else '' }}</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Email</label>
+                            <input type="email" name="email" value="{{ profile.email if profile else '' }}" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Lokasi</label>
+                            <input type="text" name="location" value="{{ profile.location if profile else '' }}" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Ganti Foto Profil (Upload dari Finder)</label>
+                        <input type="file" name="photo_file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+                        <i class="fas fa-save mr-2"></i>Simpan Perubahan Profil
+                    </button>
+                </form>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-plus-circle text-green-500 mr-2"></i>Tambah Skill</h3>
+                    <form id="formTambahSkill" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Nama Skill</label>
+                            <input type="text" id="inputNamaSkill" required placeholder="Contoh: Python, Flask" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Penguasaan (%)</label>
+                            <input type="number" id="inputPersenSkill" min="1" max="100" required placeholder="85" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-xl transition shadow-sm">
+                            <i class="fas fa-plus mr-1"></i>Tambah Skill
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-list text-purple-500 mr-2"></i>Daftar Skill Saat Ini</h3>
+                    <div class="max-h-60 overflow-y-auto space-y-3 pr-2">
+                        {% if skills %}
+                            {% for skill in skills %}
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                                <div>
+                                    <h4 class="font-bold text-gray-800 text-sm">{{ skill.name }}</h4>
+                                    <span class="text-xs text-gray-500">Progress: {{ skill.percentage }}%</span>
+                                </div>
+                                <button onclick="hapusSkill({{ skill.id }})" class="text-red-500 hover:text-red-700 p-2 transition" title="Hapus Skill">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-sm text-gray-400 italic text-center py-4">Belum ada data skill di TiDB.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+    // 1. REVISI UTAMA: Menggunakan JavaScript berbasis FormName yang terbukti aman dari crash tombol
+    document.getElementById('formProfil').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Otomatis membaca file dan text input menggunakan mapping nama elemen HTML asli
+        const formData = new FormData(this);
+        
+        try {
+            const response = await fetch('/admin/api/profiles/update', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            alert(result.message);
+            if(response.ok) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error("Error update profile:", error);
+            alert("Terjadi kesalahan sistem saat menyimpan profil.");
+        }
+    });
+
+    // 2. TAMBAH SKILL BARU
+    document.getElementById('formTambahSkill').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const payload = {
+            name: document.getElementById('inputNamaSkill').value,
+            percentage: parseInt(document.getElementById('inputPersenSkill').value),
+            category: 'General'
+        };
+
+        try {
+            const response = await fetch('/admin/api/skills/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            alert(result.message);
+            if(response.ok) window.location.reload();
+        } catch (error) {
+            console.error("Error menambah skill:", error);
+            alert("Terjadi kesalahan saat menambahkan skill.");
+        }
+    });
+
+    // 3. HAPUS DATA SKILL
+    async function hapusSkill(idSkill) {
+        if (confirm('Apakah Anda yakin ingin menghapus skill ini dari TiDB Cloud?')) {
+            try {
+                const response = await fetch(`/admin/api/skills/${idSkill}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                alert(result.message);
+                if(response.ok) window.location.reload();
+            } catch (error) {
+                console.error("Error menghapus skill:", error);
+                alert("Terjadi kesalahan saat menghapus skill.");
+            }
+        }
+    }
+    </script>
+</body>
+</html>

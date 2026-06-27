@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Proyek Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex min-h-screen">
+
+    <aside class="w-64 bg-gray-900 text-white flex flex-col justify-between shrink-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider text-blue-400 mb-8"><i class="fas fa-user-shield mr-2"></i>AdminPanel</h2>
+            <nav class="space-y-3">
+                <a href="/admin/dashboard" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-chart-pie w-5"></i> <span>Dashboard</span></a>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider pt-4">Kelola Data</p>
+                <a href="/admin/" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-user w-5"></i> <span>Profil & Skill</span></a>
+                <a href="/admin/experiences" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-briefcase w-5"></i> <span>Pengalaman</span></a>
+                <a href="/admin/projects" class="flex items-center space-x-3 px-4 py-3 bg-blue-600 rounded-lg font-medium transition"><i class="fas fa-project-diagram w-5"></i> <span>Proyek</span></a>
+            </nav>
+        </div>
+        <div class="p-6 border-t border-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Hai, <strong class="text-white">{{ username }}</strong></span>
+                <a href="/admin/logout" class="text-red-400 hover:text-red-500 transition font-semibold text-sm"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-grow p-10">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900">Kelola Proyek</h1>
+                <p class="text-gray-500 mt-1">Atur portofolio aplikasi/web hasil karya lo di sini.</p>
+            </div>
+            <a href="/admin/dashboard" class="bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg font-medium shadow-sm transition" id="btnDashboard">&larr; Dashboard</a>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-fit">
+                <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-plus-circle text-green-500 mr-2"></i>Tambah Proyek</h3>
+                <form id="formTambahProyek" enctype="multipart/form-data" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Nama Aplikasi / Proyek</label>
+                        <input type="text" name="title" required placeholder="Contoh: E-Commerce Sistem" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Deskripsi Ringkas</label>
+                        <textarea name="description" rows="4" required placeholder="Aplikasi web dibuat dengan Flask..." class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Link Live Demo (Opsional)</label>
+                        <input type="text" name="project_url" placeholder="https://..." class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Link Repo GitHub (Opsional)</label>
+                        <input type="text" name="repo_url" placeholder="https://github.com/..." class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">Gambar / Screenshot Proyek</label>
+                        <input type="file" name="image_file" accept="image/*" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-xl transition shadow-sm">
+                        <i class="fas fa-save mr-1"></i>Simpan Proyek
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800 mb-6"><i class="fas fa-folder-open text-amber-500 mr-2"></i>Koleksi Proyek</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% if projects %}
+                        {% for proj in projects %}
+                        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                            <div>
+                                {% if proj.image_url %}
+                                    <img src="{{ proj.image_url }}" alt="Project Preview" class="w-full h-40 object-cover bg-gray-100">
+                                {% else %}
+                                    <div class="w-full h-40 bg-gray-100 flex flex-col items-center justify-center text-gray-400">
+                                        <i class="fas fa-image text-2xl mb-1"></i>
+                                        <span class="text-xs">Belum ada gambar</span>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="p-4">
+                                    <h4 class="font-bold text-gray-900 text-base mb-1">{{ proj.title }}</h4>
+                                    <p class="text-xs text-gray-600 line-clamp-3 leading-relaxed">{{ proj.description }}</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 border-t border-gray-100 flex justify-end space-x-4 text-sm font-semibold bg-gray-50">
+                                <button 
+                                    data-id="{{ proj.id }}"
+                                    data-title="{{ proj.title|escape }}"
+                                    data-description="{{ proj.description|escape }}"
+                                    data-project-url="{{ proj.project_url or '' }}"
+                                    data-repo-url="{{ proj.repo_url or '' }}"
+                                    data-image-url="{{ proj.image_url or '' }}"
+                                    onclick="bukaModalEdit(this)" 
+                                    class="text-blue-600 hover:text-blue-800 flex items-center transition">
+                                    <i class="fas fa-edit mr-1"></i> Edit
+                                </button>
+                                <button onclick="hapusProyek({{ proj.id }})" class="text-red-500 hover:text-red-700 flex items-center transition">
+                                    <i class="fas fa-trash-alt mr-1"></i> Hapus
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-span-2 text-center py-12 text-gray-400 italic">
+                            <i class="fas fa-folder-open text-3xl mb-2"></i>
+                            <p class="text-sm">Belum ada data proyek di portofolio kamu.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="editModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative mx-4 max-h-[90vh] overflow-y-auto">
+            <button onclick="tutupModalEdit()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl outline-none">&times;</button>
+            <h3 class="text-xl font-bold text-gray-800 mb-4"><i class="fas fa-edit text-blue-500 mr-2"></i>Edit Informasi Proyek</h3>
+            
+            <form id="formEditProyek" enctype="multipart/form-data" class="space-y-4">
+                <input type="hidden" name="id" id="editId">
+                <input type="hidden" name="existing_image_url" id="editExistingImage">
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Nama Aplikasi / Proyek</label>
+                    <input type="text" name="title" id="editTitle" required class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Deskripsi Ringkas</label>
+                    <textarea name="description" id="editDescription" rows="4" required class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Link Live Demo (Opsional)</label>
+                    <input type="text" name="project_url" id="editProjectUrl" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Link Repo GitHub (Opsional)</label>
+                    <input type="text" name="repo_url" id="editRepoUrl" class="w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Ganti Gambar Proyek (Biarkan kosong jika tidak ingin diubah)</label>
+                    <input type="file" name="image_file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                </div>
+                
+                <div class="flex justify-end space-x-3 pt-3 border-t">
+                    <button type="button" onclick="tutupModalEdit()" class="px-4 py-2 border rounded-xl text-gray-600 hover:bg-gray-50 font-medium">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-sm transition">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // 1. POST DATA PROYEK BARU DENGAN DETEKSI RESPON ASLI SERVER
+    document.getElementById('formTambahProyek').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        try {
+            const response = await fetch('/admin/api/projects/', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const textData = await response.text(); // Ambil raw text duluan biar aman dari JSON crash
+            
+            if (!response.ok) {
+                try {
+                    // Jika backend merespon dalam bentuk JSON error
+                    const errorJson = JSON.parse(textData);
+                    alert("Gagal menyimpan: " + (errorJson.message || errorJson.error));
+                } catch(e) {
+                    // Jika backend mengalami crash 500 (Muncul stack trace database TiDB)
+                    alert(`Server Error (${response.status}): Cek apakah nama kolom database sesuai.`);
+                }
+                return;
+            }
+            
+            const result = JSON.parse(textData);
+            alert(result.message || "Proyek berhasil disimpan!");
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+            alert("Error sistem: " + error.message);
+        }
+    });
+
+    // 2. AMBIL DATA DARI ATTRIBUTE TOMBOL (ANTI-CRASH)
+    function bukaModalEdit(button) {
+        document.getElementById('editId').value = button.getAttribute('data-id');
+        document.getElementById('editTitle').value = button.getAttribute('data-title');
+        document.getElementById('editDescription').value = button.getAttribute('data-description');
+        document.getElementById('editProjectUrl').value = button.getAttribute('data-project-url');
+        document.getElementById('editRepoUrl').value = button.getAttribute('data-repo-url');
+        document.getElementById('editExistingImage').value = button.getAttribute('data-image-url');
+        
+        document.getElementById('editModal').classList.remove('hidden');
+    }
+
+    function tutupModalEdit() {
+        document.getElementById('editModal').classList.add('hidden');
+        document.getElementById('formEditProyek').reset();
+    }
+
+    // 3. PUT / POST UPDATE EDIT DATA PROYEK
+    document.getElementById('formEditProyek').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const idProyek = document.getElementById('editId').value;
+        
+        try {
+            const response = await fetch(`/admin/api/projects/update/${idProyek}`, {
+                method: 'POST', 
+                body: formData
+            });
+            
+            const textData = await response.text();
+            
+            if (!response.ok) {
+                try {
+                    const errorJson = JSON.parse(textData);
+                    alert("Gagal update: " + (errorJson.message || errorJson.error));
+                } catch(e) {
+                    alert(`Server Error (${response.status}) saat memperbarui data.`);
+                }
+                return;
+            }
+            
+            const result = JSON.parse(textData);
+            alert(result.message || "Data proyek berhasil diperbarui!");
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+            alert("Gagal memperbarui data proyek.");
+        }
+    });
+
+    // 4. ACTION HAPUS DATA PROYEK
+    async function hapusProyek(id) {
+        if(confirm("Apakah lo yakin ingin menghapus proyek ini dari database TiDB Cloud?")) {
+            try {
+                const response = await fetch(`/admin/api/projects/${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+                alert(result.message || "Proyek terhapus!");
+                if(response.ok) window.location.reload();
+            } catch (error) {
+                console.error(error);
+                alert("Gagal menghapus data.");
+            }
+        }
+    }
+    </script>
+</body>
+</html>

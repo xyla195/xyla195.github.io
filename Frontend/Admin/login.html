@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Panel Kontrol</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-xl">
+        <div class="text-center">
+            <h1 class="text-3xl font-extrabold text-gray-900">Admin Login</h1>
+            <p class="text-sm text-gray-500 mt-2">Masuk untuk mengelola web portofolio Anda</p>
+        </div>
+        
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <label class="block mb-2 text-sm font-semibold text-gray-700">Username</label>
+                <input type="text" id="username" required placeholder="admin" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+                <input type="password" id="password" required placeholder="••••••••" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            <div id="errorMessage" class="text-red-500 text-sm font-medium hidden"></div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow transition">
+                Masuk
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errDiv = document.getElementById('errorMessage');
+            errDiv.classList.add('hidden');
+
+            const payload = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Jika sukses login, arahkan ke dashboard admin
+                    window.location.href = result.redirect;
+                } else {
+                    errDiv.innerText = result.error;
+                    errDiv.classList.remove('hidden');
+                }
+            } catch (err) {
+                errDiv.innerText = 'Gagal tersambung ke server.';
+                errDiv.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

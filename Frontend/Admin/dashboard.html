@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex min-h-screen">
+
+    <aside class="w-64 bg-gray-900 text-white flex flex-col justify-between shrink-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider text-blue-400 mb-8"><i class="fas fa-user-shield mr-2"></i>AdminPanel</h2>
+            
+            <nav class="space-y-3">
+                <a href="/admin/dashboard" class="flex items-center space-x-3 px-4 py-3 bg-blue-600 rounded-lg font-medium transition"><i class="fas fa-chart-pie w-5"></i> <span>Dashboard</span></a>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider pt-4">Kelola Data</p>
+                <a href="/admin/" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-user w-5"></i> <span>Profil & Skill</span></a>
+                <a href="/admin/experiences" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-briefcase w-5"></i> <span>Pengalaman</span></a>
+                <a href="/admin/projects" class="flex items-center space-x-3 px-4 py-2.5 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg transition"><i class="fas fa-project-diagram w-5"></i> <span>Proyek</span></a>
+            </nav>
+        </div>
+        <div class="p-6 border-t border-gray-800">
+            <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-400">Hai, <strong class="text-white">{{ username }}</strong></span>
+                <a href="/admin/logout" class="text-red-400 hover:text-red-500 transition font-semibold text-sm"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-grow p-10">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900">Dashboard Ringkasan</h1>
+                <p class="text-gray-500 mt-1">Status dan jumlah data portofolio dinamis Anda saat ini.</p>
+            </div>
+            <a href="/" target="_blank" class="bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg font-medium shadow-sm transition"><i class="fas fa-external-link-alt mr-1"></i> Lihat Website</a>
+        </header>
+
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm flex items-center justify-between border border-gray-200">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Total Skill</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ stats.skills }}</h3>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl"><i class="fas fa-brain"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm flex items-center justify-between border border-gray-200">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Pengalaman</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ stats.experiences }}</h3>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center text-xl"><i class="fas fa-briefcase"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm flex items-center justify-between border border-gray-200">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Total Proyek</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ stats.projects }}</h3>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl"><i class="fas fa-project-diagram"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm flex items-center justify-between border border-gray-200">
+                <div>
+                    <p class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Pesan Masuk</p>
+                    <h3 class="text-3xl font-bold text-gray-900 mt-1">{{ stats.contacts }}</h3>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-yellow-50 text-yellow-600 flex items-center justify-center text-xl"><i class="fas fa-envelope"></i></div>
+            </div>
+        </section>
+
+        <section class="bg-blue-900 text-white p-8 rounded-2xl shadow-md mt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="space-y-2">
+                <h4 class="text-xl font-bold"><i class="fas fa-lightbulb text-yellow-400 mr-2"></i>Siap untuk Mengambil Screenshot?</h4>
+                <p class="text-blue-200 text-sm max-w-xl">Halaman ini, halaman login, dan halaman utama depan sudah siap. Anda tinggal menyalakan server lokal Flask untuk mulai mengambil tangkapan layar tugas!</p>
+            </div>
+            <div class="bg-blue-800 px-4 py-2.5 rounded-lg font-mono text-xs text-blue-300 border border-blue-700">python app.py</div>
+        </section>
+    </main>
+
+</body>
+</html>
