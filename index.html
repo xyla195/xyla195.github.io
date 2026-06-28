@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ profile.name if profile else 'My Portfolio' }} - Portfolio</title>
+    <title>Friskila Checyo Divanti - Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,7 +12,7 @@
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/admin" class="text-xl font-bold text-blue-600 tracking-wide uppercase" title="Masuk ke Halaman Admin">
-                {{ profile.name.split(' ')[0] if profile else 'PORTFOLIO' }}
+                Friskila
             </a>
             <div class="space-x-6">
                 <a href="#about" class="hover:text-blue-600 transition">Tentang</a>
@@ -26,19 +26,17 @@
 
     <section id="about" class="max-w-6xl mx-auto px-4 py-20 flex flex-col md:flex-row items-center gap-12">
         <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-lg border-4 border-blue-500 shrink-0 bg-gray-200">
-            {% if profile and profile.photo_url %}
-                <img src="{{ profile.photo_url }}" alt="Profile Photo" class="w-full h-full object-cover">
-            {% else %}
-                <img src="https://ui-avatars.com/api/?name={{ profile.name if profile else 'Portfolio' }}&background=2563EB&color=fff&size=256" alt="Profile Photo" class="w-full h-full object-cover">
-            {% endif %}
+            
+                <img src="https://res.cloudinary.com/dgqbudyoz/image/upload/v1782490680/portfolio_assets/uladcd97unjyb2zpe8km.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+            
         </div>
         <div class="text-center md:text-left">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">{{ profile.name if profile else 'Nama Anda' }}</h1>
-            <p class="text-xl text-blue-600 font-medium mb-4">{{ profile.title if profile else 'Profesi / Bidang' }}</p>
-            <p class="text-gray-600 max-w-2xl mb-6 leading-relaxed">{{ profile.bio if profile else 'Tuliskan biografi singkat Anda di panel admin.' }}</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2">Friskila Checyo Divanti</h1>
+            <p class="text-xl text-blue-600 font-medium mb-4">Mahasiswa Sistem Informasi </p>
+            <p class="text-gray-600 max-w-2xl mb-6 leading-relaxed">Mahasiswa Sistem Informasi Universitas Kristen Satya Wacana yang memiliki minat besar dalam menganalisis proses bisnis dan mengimplementasikannya ke dalam solusi teknologi. Menguasai konsep manajemen basis data, perancangan sistem, serta analisis sistem perusahaan. Memiliki kemampuan berpikir analitis yang kuat dan siap berkontribusi dalam menjembatani kebutuhan bisnis dengan inovasi teknologi</p>
             <div class="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-gray-500">
-                {% if profile and profile.location %}<span><i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> {{ profile.location }}</span>{% endif %}
-                {% if profile and profile.email %}<span><i class="fas fa-envelope text-blue-500 mr-1"></i> {{ profile.email }}</span>{% endif %}
+                <span><i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> Salatiga, Indonesia</span>
+                <span><i class="fas fa-envelope text-blue-500 mr-1"></i> 682024003@student.uksw.edu</span>
             </div>
         </div>
     </section>
@@ -47,19 +45,67 @@
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Keahlian & Skill</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {% for skill in skills %}
+                
                 <div>
                     <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-gray-700">{{ skill.name }}</span>
-                        <span class="text-blue-600 font-bold">{{ skill.percentage }}%</span>
+                        <span class="font-semibold text-gray-700">Database &amp; Data Modeling</span>
+                        <span class="text-blue-600 font-bold">80%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3">
-                        <div class="bg-blue-600 h-3 rounded-full" style="width: {{ skill.percentage }}%"></div>
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 80%"></div>
                     </div>
                 </div>
-                {% else %}
-                <p class="text-gray-500 text-center col-span-2">Belum ada data skill. Tambahkan melalui panel admin.</p>
-                {% endfor %}
+                
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">Programming &amp; Scripting</span>
+                        <span class="text-blue-600 font-bold">68%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 68%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">System Analysis</span>
+                        <span class="text-blue-600 font-bold">70%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 70%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">UI/UX &amp; Wireframing</span>
+                        <span class="text-blue-600 font-bold">82%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 82%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">Business Process Mapping</span>
+                        <span class="text-blue-600 font-bold">88%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 88%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-gray-700">Enterprise Resource Planning (ERP)</span>
+                        <span class="text-blue-600 font-bold">85%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="bg-blue-600 h-3 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
@@ -69,42 +115,241 @@
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Riwayat Pengalaman</h2>
             
             <div class="relative border-l-4 border-blue-100 ml-4 md:mx-auto max-w-3xl">
-                {% for exp in experiences %}
+                
                 <div class="mb-10 ml-8 group">
                     <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
                     
                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
                             <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
-                                {{ exp.title }}
-                                {% if exp.company and exp.company.strip() != '-' %}
+                                OSIS - Head of Non-Academic Division
+                                
                                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
-                                    <i class="fas fa-building mr-1"></i> {{ exp.company }}
+                                    <i class="fas fa-building mr-1"></i> SMA Lentera Jati Agung
                                 </span>
-                                {% endif %}
+                                
                             </h3>
                         </div>
                         
                         <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
                             <i class="fas fa-calendar-alt"></i>
-                            {% if exp.start_date and exp.start_date.strip() != '-' %}{{ exp.start_date }}{% endif %}
-                            {% if exp.start_date and exp.end_date and exp.start_date.strip() != '-' and exp.end_date.strip() != '-' %} — {% endif %}
-                            {% if exp.end_date and exp.end_date.strip() != '-' %}{{ exp.end_date }}{% endif %}
+                            2022-2023
+                            
+                            
                         </time>
                         
-                        {% if exp.description and exp.description.strip() != '-' and exp.description.strip() != '' %}
-                        <p class="text-gray-600 leading-relaxed text-sm md:text-base border-t border-gray-200 pt-3 mt-2">
-                            {{ exp.description }}
-                        </p>
-                        {% endif %}
+                        
                     </div>
                 </div>
-                {% else %}
-                <div class="text-center p-8 bg-gray-50 rounded-xl border border-gray-200 text-gray-500">
-                    <i class="fas fa-folder-open text-4xl mb-3 text-gray-400"></i>
-                    <p>Belum ada data pengalaman yang ditambahkan.</p>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Campus Ministry - Seketaris Divisi Tarian
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Universitas Kristen Satya Wacana
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2024-2025
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
                 </div>
-                {% endfor %}
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Anggota Senat Mahasiswa Fakultas 
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Fakultas Teknologi Informasi
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2026-Sekarang
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Bakti Sosial Masyarakat - Sie.Kesehatan
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Gereja Kristen Penyebaran Injil
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2023
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Tawa Tiga Vol 2 - Volunteer LO
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Tawa Tiga 
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2024
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Welcoming Service - Fasilitator
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Universitas Kristen Satya Wacana
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2025
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                KBM FAIR - Bendahara KBM FAIR
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Fakultas Teknologi Informasi
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2026
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Makrab K’MPLANG - Sekretaris Makrab K’MPLANG
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> K&#39;MPLANG
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2026
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="mb-10 ml-8 group">
+                    <span class="absolute flex items-center justify-center w-5 h-5 bg-blue-600 rounded-full -left-[11px] mt-2 ring-4 ring-white group-hover:scale-125 transition-transform duration-300"></span>
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-2 gap-2">
+                            <h3 class="text-xl font-bold text-gray-900 flex flex-wrap items-center gap-3">
+                                Senat Training - Koordinator Satuan Tugas
+                                
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap shadow-sm">
+                                    <i class="fas fa-building mr-1"></i> Fakultas Teknologi Informasi
+                                </span>
+                                
+                            </h3>
+                        </div>
+                        
+                        <time class="block mb-4 text-sm font-medium text-blue-500 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            2026
+                            
+                            
+                        </time>
+                        
+                        
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>
@@ -113,23 +358,21 @@
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Proyek Saya</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {% for proj in projects %}
+                
                 <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition flex flex-col">
-                    <img class="h-48 w-full object-cover bg-gray-200" src="{{ proj.image_url if proj.image_url else 'https://via.placeholder.com/400x250' }}" alt="Project Image">
+                    <img class="h-48 w-full object-cover bg-gray-200" src="https://res.cloudinary.com/dgqbudyoz/image/upload/v1782575460/portfolio/projects/dgkap3ntusn9u3evifkn.jpg" alt="Project Image">
                     <div class="p-6 flex-grow flex flex-col justify-between">
                         <div>
-                            <h3 class="font-bold text-xl mb-2 text-gray-900">{{ proj.title }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ proj.description }}</p>
+                            <h3 class="font-bold text-xl mb-2 text-gray-900">Portofolio</h3>
+                            <p class="text-gray-600 text-sm mb-4">Mahasiswa Sistem Informasi UKSW | Spesialisasi: Oracle SQL, Python dan Data Analysis. Mengubah kompleksitas proses bisnis menjadi arsitektur sistem dan database yang efisien.</p>
                         </div>
                         <div class="flex gap-4 mt-4 text-sm font-semibold">
-                            {% if proj.project_url and proj.project_url != '#' %}<a href="{{ proj.project_url }}" target="_blank" class="text-blue-600 hover:underline">Live Demo</a>{% endif %}
-                            {% if proj.repo_url and proj.repo_url != '#' %}<a href="{{ proj.repo_url }}" target="_blank" class="text-gray-600 hover:underline"><i class="fab fa-github"></i> Repository</a>{% endif %}
+                            
+                            <a href="https://xyla195.github.io" target="_blank" class="text-gray-600 hover:underline"><i class="fab fa-github"></i> Repository</a>
                         </div>
                     </div>
                 </div>
-                {% else %}
-                <p class="text-gray-500 text-center col-span-3">Belum ada data proyek.</p>
-                {% endfor %}
+                
             </div>
         </div>
     </section>
@@ -164,7 +407,7 @@
     </section>
 
     <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm border-t border-gray-800">
-        <p>&copy; 2026 {{ profile.name if profile else 'Nama Anda' }}. Seluruh Hak Cipta Dilindungi.</p>
+        <p>&copy; 2026 Friskila Checyo Divanti. Seluruh Hak Cipta Dilindungi.</p>
     </footer>
 
     <script>
