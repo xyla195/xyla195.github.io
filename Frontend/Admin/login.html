@@ -36,6 +36,14 @@
             const errDiv = document.getElementById('errorMessage');
             errDiv.classList.add('hidden');
 
+            // JIKA DIAKSES VIA GITHUB PAGES
+            if (window.location.hostname.includes('github.io')) {
+                // Berada di dalam folder Frontend/admin/, keluar dua tingkat untuk menuju dashboard.html di root
+                window.location.href = '../../dashboard.html';
+                return;
+            }
+
+            // JIKA DIAKSES VIA SERVER FLASK LOKAL
             const payload = {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value
@@ -50,7 +58,6 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    // Jika sukses login, arahkan ke dashboard admin
                     window.location.href = result.redirect;
                 } else {
                     errDiv.innerText = result.error;
