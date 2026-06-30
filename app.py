@@ -1,10 +1,14 @@
-from flask import Flask, render_template
-from config import Config
 import os
+from flask import Flask
+from config import Config
 
+# 1. Dapatkan lokasi absolut dari folder tempat app.py ini berada
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# 2. Paksa Flask untuk menjadikan BASE_DIR sebagai patokan utama
 app = Flask(__name__, 
-            template_folder='.', # <-- UBAH JADI TITIK (.) BIAR FLASK MEMBACA ROOT FOLDER
-            static_folder='Frontend')
+            template_folder=BASE_DIR, 
+            static_folder=os.path.join(BASE_DIR, 'Frontend'))
 
 app.secret_key = os.getenv("SECRET_KEY", "bukan_rahasia_123")
 
