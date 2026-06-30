@@ -2,13 +2,13 @@ import os
 from flask import Flask
 from config import Config
 
-# 1. Dapatkan lokasi absolut dari folder tempat app.py ini berada
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
-# 2. Paksa Flask untuk menjadikan BASE_DIR sebagai patokan utama
+# Kita arahkan template_folder LANGSUNG masuk ke dalam folder 'frontend'
+# Dan static_folder kembali ke 'Static' agar CSS/Gambar tidak error
 app = Flask(__name__, 
-            template_folder=BASE_DIR, 
-            static_folder=os.path.join(BASE_DIR, 'frontend'))
+            template_folder=os.path.join(BASE_DIR, 'frontend'), 
+            static_folder=os.path.join(BASE_DIR, 'Static'))
 
 app.secret_key = os.getenv("SECRET_KEY", "bukan_rahasia_123")
 
