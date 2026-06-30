@@ -56,7 +56,8 @@ def dashboard_home():
             cursor.close()
             db.close()
 
-    return render_template('frontend/admin/dashboard.html', username=session.get('username'), stats=stats)
+    # REVISI JALUR: frontend/Admin/dashboard.html
+    return render_template('frontend/Admin/dashboard.html', username=session.get('username'), stats=stats)
 
 
 # ====================================================================
@@ -104,7 +105,8 @@ def admin_manage():
     cursor.close()
     db.close()
     
-    return render_template('frontend/admin/profiles.html', 
+    # REVISI JALUR: frontend/Admin/profiles.html
+    return render_template('frontend/Admin/profiles.html', 
                            username=session.get('username'),
                            profile=profile, 
                            skills=skills)
@@ -161,7 +163,8 @@ def admin_experiences():
         cursor.close()
         db.close()
         
-    return render_template('frontend/admin/experiences.html', username=session.get('username'), experiences=experiences)
+    # REVISI JALUR: frontend/Admin/experiences.html
+    return render_template('frontend/Admin/experiences.html', username=session.get('username'), experiences=experiences)
 
 
 # ====================================================================
@@ -212,7 +215,8 @@ def admin_projects():
         cursor.close()
         db.close()
         
-    return render_template('frontend/admin/projects.html', username=session.get('username'), projects=projects)
+    # REVISI JALUR: frontend/Admin/projects.html
+    return render_template('frontend/Admin/projects.html', username=session.get('username'), projects=projects)
 
 
 # ====================================================================
