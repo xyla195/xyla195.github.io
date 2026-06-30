@@ -56,7 +56,7 @@ def dashboard_home():
             cursor.close()
             db.close()
 
-    return render_template('Frontend/admin/dashboard.html', username=session.get('username'), stats=stats)
+    return render_template('frontend/admin/dashboard.html', username=session.get('username'), stats=stats)
 
 
 # ====================================================================
@@ -104,7 +104,7 @@ def admin_manage():
     cursor.close()
     db.close()
     
-    return render_template('Frontend/admin/profiles.html', 
+    return render_template('frontend/admin/profiles.html', 
                            username=session.get('username'),
                            profile=profile, 
                            skills=skills)
@@ -161,7 +161,7 @@ def admin_experiences():
         cursor.close()
         db.close()
         
-    return render_template('Frontend/admin/experiences.html', username=session.get('username'), experiences=experiences)
+    return render_template('frontend/admin/experiences.html', username=session.get('username'), experiences=experiences)
 
 
 # ====================================================================
@@ -212,7 +212,7 @@ def admin_projects():
         cursor.close()
         db.close()
         
-    return render_template('Frontend/admin/projects.html', username=session.get('username'), projects=projects)
+    return render_template('frontend/admin/projects.html', username=session.get('username'), projects=projects)
 
 
 # ====================================================================

@@ -8,7 +8,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # 2. Paksa Flask untuk menjadikan BASE_DIR sebagai patokan utama
 app = Flask(__name__, 
             template_folder=BASE_DIR, 
-            static_folder=os.path.join(BASE_DIR, 'Frontend'))
+            static_folder=os.path.join(BASE_DIR, 'frontend'))
 
 app.secret_key = os.getenv("SECRET_KEY", "bukan_rahasia_123")
 
