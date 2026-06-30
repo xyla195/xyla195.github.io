@@ -10,9 +10,9 @@ def login():
         # Jika ternyata sudah login, langsung alihkan ke dashboard
         if session.get('logged_in'):
             return redirect(url_for('dashboard.dashboard_home'))
-        return render_template('admin/login.html')
+        return render_template('frontend/admin/login.html')
 
-    # Jika admin menekan tombol submit form login (POST)
+    # Jika frontend/admin menekan tombol submit form login (POST)
     data = request.get_json() or request.form
     username = data.get('username')
     password = data.get('password')

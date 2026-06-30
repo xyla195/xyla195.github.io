@@ -4,10 +4,8 @@ from config import Config
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
-# Kita arahkan template_folder LANGSUNG masuk ke dalam folder 'frontend'
-# Dan static_folder kembali ke 'Static' agar CSS/Gambar tidak error
 app = Flask(__name__, 
-            template_folder=os.path.join(BASE_DIR, 'frontend'), 
+            template_folder=BASE_DIR, 
             static_folder=os.path.join(BASE_DIR, 'Static'))
 
 app.secret_key = os.getenv("SECRET_KEY", "bukan_rahasia_123")
